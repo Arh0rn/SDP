@@ -1,15 +1,31 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import cinema.config.CinemaConfig;
+import cinema.factory.MovieFactory;
+import cinema.factory.RegularMovieFactory;
+import cinema.factory.IMAXMovieFactory;
+import cinema.movie.Movie;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        CinemaConfig conf = CinemaConfig.getInstance();
+        //Singleton
+        conf.setCinemaName("GoldenCinema");
+        conf.setNumberOfScreens(20);
+        //Factory
+        Movie movie = null;
+        MovieFactory factory = null;
+        String type = "IMAX";
+        String title = "Hancock";
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        if (type.equalsIgnoreCase("Regular")) {
+            factory = new RegularMovieFactory();
+        } else if (type.equalsIgnoreCase("IMAX")) {
+            factory = new IMAXMovieFactory();
+        } else {
+            System.out.println("Invalid movie type.");
+            return;
         }
+
+        movie = factory.createMovie(title);
+        System.out.println(movie.getTitle() + " " + movie.getType());
     }
 }
