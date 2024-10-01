@@ -1,31 +1,38 @@
 import cinema.config.CinemaConfig;
-import cinema.factory.MovieFactory;
-import cinema.factory.RegularMovieFactory;
-import cinema.factory.IMAXMovieFactory;
+import cinema.factory.*;
 import cinema.movie.Movie;
-
+import cinema.ui.Button;
+import cinema.ui.UIFactory;
+import cinema.ui.dark.*;
+import cinema.booking.TicketBooking;
+import cinema.schedule.MovieSchedule;
+import cinema.schedule.StandardSchedule;
 public class Main {
     public static void main(String[] args) {
-        CinemaConfig conf = CinemaConfig.getInstance();
-        //Singleton
-        conf.setCinemaName("GoldenCinema");
-        conf.setNumberOfScreens(20);
-        //Factory
-        Movie movie = null;
-        MovieFactory factory = null;
-        String type = "IMAX";
-        String title = "Hancock";
+        // Singleton usage
+        CinemaConfig config = CinemaConfig.getInstance();
+        config.setCinemaName("Starlight Cinemas");
+        System.out.println("Cinema Name: " + config.getCinemaName());
+        // Factory Method usage
+        MovieFactory regularFactory = new RegularMovieFactory();
+        Movie movie = regularFactory.createMovie("Inception");
+        System.out.println("Movie: " + movie.getTitle() + ", Type: " + movie.getType());
+        // Abstract Factory usage
+        UIFactory uiFactory = new DarkThemeFactory();
+        Button button = uiFactory.createButton();
+        button.render();
+        // Builder usage
+        TicketBooking booking = new TicketBooking.TicketBookingBuilder()
+                .setMovieTitle("Inception")
+                .setSeatNumber("A10")
+                .setSnackCombo("Popcorn & Soda")
+                .build();
 
-        if (type.equalsIgnoreCase("Regular")) {
-            factory = new RegularMovieFactory();
-        } else if (type.equalsIgnoreCase("IMAX")) {
-            factory = new IMAXMovieFactory();
-        } else {
-            System.out.println("Invalid movie type.");
-            return;
-        }
-
-        movie = factory.createMovie(title);
-        System.out.println(movie.getTitle() + " " + movie.getType());
+        // Prototype usage
+        StandardSchedule template = new StandardSchedule();
+        template.setTime("18:00");
+        MovieSchedule eveningSchedule = template.clone();
+        eveningSchedule.setMovie(movie);
+        System.out.println("Cinema Management System initialized.");
     }
 }
