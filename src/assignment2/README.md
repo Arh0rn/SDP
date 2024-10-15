@@ -706,11 +706,11 @@ Decorator Pattern - Pizza Ordering System
        public void getInfo() {
            if (realVideo
 
-Lecture == null) {
-realVideoLecture = new RealVideoLecture(title);
-}
-realVideoLecture.getInfo();
-}
+   Lecture == null) {
+   realVideoLecture = new RealVideoLecture(title);
+   }
+   realVideoLecture.getInfo();
+   }
 
        @Override
        public void play() {
@@ -720,12 +720,12 @@ realVideoLecture.getInfo();
            realVideoLecture.play();
        }
 
-}
+   }
 
    ```
 
-4. **LearningPlatformApp Class**: 
-   - Demonstrates the proxy functionality.
+4. **LearningPlatformApp Class**:
+    - Demonstrates the proxy functionality.
    ```java
    public class LearningPlatformApp {
        public static void main(String[] args) {
