@@ -14,20 +14,30 @@ The **Strategy Pattern** allows a payment system to switch between multiple paym
 
 ---
 
-### Task 2: Observer Pattern - Stock Price Monitoring System
+### Task 2: Observer Pattern (Weather Monitoring System):
 
-**Overview**:  
-The **Observer Pattern** allows a stock price monitoring system to notify multiple observers (e.g., investors, brokers) when the stock price changes. The observers are automatically updated without the stock needing to know details about them.
+- **`WeatherDisplay` Interface**: Defines the `update(temperature, humidity, pressure)` method that all display devices must implement.
+- **`CurrentConditionsDisplay`, `StatisticsDisplay`, `ForecastDisplay`**: These classes implement the `WeatherDisplay` interface and display different types of weather data when updated.
+- **`WeatherStation` Class**: Acts as the *subject* in the Observer pattern. It manages weather data and maintains a list of observers (display devices). When weather data changes, it notifies all registered observers by calling their `update()` method.
+- **`WeatherData` Class**: Manages the `WeatherStation` and registers multiple display devices as observers. It also updates the weather data, which triggers the notifications to the displays.
+- **`Main` Class**: Demonstrates how different displays are updated automatically when the weather data changes in the `WeatherStation`.
 
-**How it works**:
-- **`StockObserver`** is an interface that defines the `update()` method for observers to receive notifications.
-- **`InvestorObserver`** and **`BrokerObserver`** are concrete observers that implement `StockObserver` and define how they react to stock price changes.
-- **`StockSubject`** defines an interface for managing observers and notifying them of changes.
-- **`ConcreteStock`** is a concrete subject (a stock) that manages observers and triggers notifications when the stock price changes.
-- In **`Main`**, different observers subscribe to a stock. When the stock price is updated, all observers are notified.
+In short: The **Observer Pattern** allows the `WeatherStation` to notify multiple display devices (observers) whenever new weather data is available, automatically updating all displays with minimal coupling between them.
 
-**Key Benefit**:
-- The system allows for a flexible number of observers that can dynamically subscribe or unsubscribe to stock price updates. This makes the system modular and scalable.
+###  Task 3: Command Pattern (Remote Control System)
+For **Task 3: Command Pattern (Remote Control System)**, we need to create a remote control system where different devices can be controlled using commands.
+
+#### Package Structure for Task 3: Remote Control System
+
+1. **Package Structure**:
+    - The `command` package contains all the command classes (`TurnTVOn`, `SetVolume`, `DimLights`) that implement the `Command` interface.
+    - The `devices` package contains the receiver classes (`TV`, `Stereo`, `Light`) that perform actions when commands are executed.
+    - The `RemoteControl` class acts as the invoker, storing commands and executing them upon button presses.
+    - The `Main` class demonstrates the functionality of the remote control, including the undo feature.
+
+2. **Execution**:
+    - The user can assign commands to slots in the remote control and execute them (turning the TV on, setting the stereo volume, dimming the lights).
+    - The `undo()` feature allows the remote control to revert the last action performed.
 
 ---
 
